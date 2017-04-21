@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Tareinis</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="newTask()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons> 
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+<!--
+  <form #formTask="ngForm" (ngSubmit)="addTask()">
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="Ingrese una tareini" name="taskname" ngControl="taskname" required validate #taskname="ngModel" [(ngModel)]="task.name"></ion-input>
+      </ion-item>
+  </ion-list>
+  </form>-->
+
+  <ion-list>
+    <ion-list-header>
+      Pendientes
+    </ion-list-header>
+    <template ngFor let-t [ngForOf]="tasks | async">
+
+      <ion-item  *ngIf="!t.completed">
+        <ion-label>{{t.name}}</ion-label>
+        <ion-checkbox color="dark" checked="{{t.completed}}" (ionChange)="updateTask($event, t.$key)"></ion-checkbox>
+      </ion-item>
+    </template>
+
+    <ion-list-header>
+      Terminadas
+    </ion-list-header>
+    <template ngFor let-t [ngForOf]="tasks | async">
+
+      <ion-item  *ngIf="t.completed">
+        <ion-label style="text-decoration:line-through;">{{t.name}}</ion-label>
+        <ion-checkbox color="dark" checked="{{t.completed}}" (ionChange)="updateTask($event, t.$key)"></ion-checkbox>
+      </ion-item>
+    </template>
+
+    <!-- <ion-list-header>
+    Completadas
+    </ion-list-header>
+    <ion-item *ngFor="let t of tasks | async" >
+      <ion-label>{{t.name}}</ion-label>
+      <ion-checkbox color="dark" checked="{{t.completed}}" (ionChange)="updateTask($event, t.$key)"></ion-checkbox>
+    </ion-item> -->
+  </ion-list>
+
+
+</ion-content>
